@@ -55,7 +55,7 @@ module.exports = function (app) {
         }
 
 
-    //Function to filter the lowest number, and return a modal when you have a match
+    //Function to find the index of the lowest number
 
         function indexOfMin(arr) {
 
@@ -68,19 +68,14 @@ module.exports = function (app) {
                     min = arr[i];
                 }
             }
-
             return minIndex;
-
         }
 
-        indexOfMin(findMatch());
 
-        //Function to return the modal-- in the video, where does she write the code to append the reservations?
+        //Function to return the modal
         var winner = indexOfMin(findMatch());
         console.log(friends[winner].name, friends[winner].photo);
     });
-
-
 
 
     app.post('/api/clear', function(req, res){

@@ -29,7 +29,7 @@
     <hr>
 
     <h3><strong>Question 1</strong></h3>
-    <h4>You fear you'll be the last man or woman on Earth still not getting any.</h4>
+    <h4>Motion sensor controls in the bathroom that dispense paper towels don't seem to work for you.</h4>
     <select data-placeholder="" class="chosen-select" id="q1">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -40,7 +40,7 @@
     </select>
 
     <h3><strong>Question 2</strong></h3>
-    <h4>A pick up line you have seriously considered is, "Does this smell like chloroform to you?"</h4>
+    <h4>You need a friends so badly you have thought about opening a conversation with, "Does this smell like chloroform to you?"</h4>
     <select data-placeholder="" class="chosen-select" id="q2">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -52,7 +52,7 @@
 
 
     <h3><strong>Question 3</strong></h3>
-    <h4>If a door hits you accidentally, you feel a sudden urge to apologize to it.</h4>
+    <h4>If a door accidentally hits you, you feel a sudden urge to apologize to it.</h4>
     <select data-placeholder="" class="chosen-select" id="q3">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -76,7 +76,7 @@
 
 
     <h3><strong>Question 5</strong></h3>
-    <h4>Your pets find you to be overly clingy.</h4>
+    <h4>You enjoy the music of Nickelback.</h4>
     <select data-placeholder="" class="chosen-select" id="q5">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -88,7 +88,7 @@
 
 
     <h3><strong>Question 6</strong></h3>
-    <h4>You enjoy the music of Nickelback.</h4>
+    <h4>Your pets find you to be overly clingy.</h4>
     <select data-placeholder="" class="chosen-select" id="q6">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -146,10 +146,17 @@
     <br>
     <br>
 
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
-    Submit</button>
+    <!-- Large modal Submit Button -->
+    <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"
+            data-toggle="modal" data-target=".bs-example-modal-lg">Submit</button>
 
+        <div class="modal fade bs-example-modal-lg" tabindex="-1" id="resultsModal" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                ...
+                </div><!-- End Modal Content -->
+            </div><!-- End Modal dialog -->
+        </div>
     </div><!-- End Container -->
 </body>
 
@@ -171,6 +178,10 @@
         var currentURL = window.location.origin;
 
         $.post(currentURL + "/api/friends", newFriend, function(data){
+            console.log(data);
+
+            //Used the returned data to display the modal with the best match
+            $("#resultsModal").modal('toggle');
 
         });
         return false;
