@@ -25,42 +25,63 @@ module.exports = function (app) {
                 newScore = (Math.abs(scores[i] - friends[i].scores[j]));
                 //Push the scores into the interior array
                 currentFriendScore.push(newScore);
-                // console.log(newScore);
-
             }
             //Push the resulting array into a parent array
             friendScores.push(currentFriendScore);
         }
-        // console.log(friendScores);
+        //Convert the function into an array consumable by other functions
         return friendScores;
     }
 
 
     //Function to add the contents of each array
-        function findMatch() {
-            //First I need to get the results of the calc function-- log them here
+    function findMatch() {
 
-            var sums = [];
-            var values = 0;
-            var calcResult = calc(scores);
+        var sums = [];
+        var values = 0;
+        var calcResult = calc(scores);
 
-            function getSum(total, num) {
-                return total + num;
+        function getSum(total, num) {
+            return total + num;
+            }
+
+        for (var i = 0; i < calc(scores).length; i++) {
+
+            values = (calcResult[i].reduce(getSum));
+            sums.push(values);
+            }
+
+        return sums;
+        }
+
+
+    //Function to filter the lowest number, and return a modal when you have a match
+
+        function indexOfMin(arr) {
+
+            var min = arr[0];
+            var minIndex = 0;
+
+            for (var i = 1; i < arr.length; i++) {
+                if (arr[i] < min) {
+                    minIndex = i;
+                    min = arr[i];
                 }
+            }
 
-                for (var i = 0; i < calc(scores).length; i++) {
-
-                values = (calcResult[i].reduce(getSum));
-                sums.push(values);
-                }
-
-            console.log(sums);
+            return minIndex;
 
         }
-        findMatch();
 
+        indexOfMin(findMatch());
 
+        //Function to return the modal-- in the video, where does she write the code to append the reservations?
+        var winner = indexOfMin(findMatch());
+        console.log(friends[winner].name, friends[winner].photo);
     });
+
+
+
 
     app.post('/api/clear', function(req, res){
         friends = [];
