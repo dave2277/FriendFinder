@@ -35,15 +35,26 @@ module.exports = function (app) {
         return friendScores;
     }
 
-    calc(scores);
 
     //Function to add the contents of each array
         function findMatch() {
             //First I need to get the results of the calc function-- log them here
 
-            for (var i = 0; i < calc(scores).length; i++) {
+            var sums = [];
+            var values = 0;
+            var calcResult = calc(scores);
 
-            }
+            function getSum(total, num) {
+                return total + num;
+                }
+
+                for (var i = 0; i < calc(scores).length; i++) {
+
+                values = (calcResult[i].reduce(getSum));
+                sums.push(values);
+                }
+
+            console.log(sums);
 
         }
         findMatch();
