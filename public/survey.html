@@ -9,6 +9,9 @@
 
     <script src="https://code.jquery.com/jquery.js"></script>
     <!-- Latest compiled and minified CSS -->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
@@ -29,7 +32,7 @@
     <hr>
 
     <h3><strong>Question 1</strong></h3>
-    <h4>Motion sensor controls in the bathroom that dispense paper towels don't seem to work for you.</h4>
+    <h4>Motion sensor controls in the bathroom that dispense paper towels just don't ever seem to work for you.</h4>
     <select data-placeholder="" class="chosen-select" id="q1">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -40,7 +43,7 @@
     </select>
 
     <h3><strong>Question 2</strong></h3>
-    <h4>You need a friends so badly you have thought about opening a conversation with, "Does this smell like chloroform to you?"</h4>
+    <h4>You need friends so badly you have thought about opening a conversation with, "Does this smell like chloroform to you?"</h4>
     <select data-placeholder="" class="chosen-select" id="q2">
         <option value=""></option>
         <option value="1">1 (Strongly Disagree)</option>
@@ -147,16 +150,33 @@
     <br>
 
     <!-- Large modal Submit Button -->
-    <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"
-            data-toggle="modal" data-target=".bs-example-modal-lg">Submit</button>
+    <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit" data-toggle="modal" data-target=".bs-example-modal-lg">Submit</button>
 
-        <div id="resultsModal" class="modal fade"  role="dialog">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                ...
-                </div><!-- End Modal Content -->
-            </div><!-- End Modal dialog -->
-        </div>
+    <div id="resultsModal" class="modal fade"  role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">You Matched With:</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div><!-- End Modal header -->
+                    <div class="modal-body">
+                        <h3 id="match-name"></h3>
+                        <img id="matchpicture" src=""
+                         class="img-rounded" alt="match" width="304" height="236">
+                    </div><!-- End Modal Body -->    
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div><!-- End Modal footer -->
+                </div><!-- End Modal content-->
+            </div><!-- End Modal dialogue-->
+        </div><!-- End modal -->
+        <footer class="footer">
+            <div class="container">
+                <p><a href="/api/friends">API Friends Link</a> | <a href="#">GitHub Repo</a></p>
+            </div>
+        </footer>
     </div><!-- End Container -->
 </body>
 
@@ -177,8 +197,13 @@
 
         var currentURL = window.location.origin;
 
-        $.post(currentURL + "/api/friends", newFriend, function(data){
-            console.log(data);
+        $.post(currentURL + "/api/friends", newFriend)
+        .done(function(data){
+
+            console.log(data[0]);
+
+            $("#match-name").text(data[0]);
+            $('#matchpicture').attr("src", data[1]);
 
             //Used the returned data to display the modal with the best match
             $("#resultsModal").modal('toggle');
@@ -186,6 +211,7 @@
         });
         return false;
     })
+
 
 
 </script>

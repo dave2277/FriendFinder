@@ -72,9 +72,15 @@ module.exports = function (app) {
         }
 
 
-        //Function to return the modal
+        //Return data for the modal
         var winner = indexOfMin(findMatch());
-        console.log(friends[winner].name, friends[winner].photo);
+       
+        var dataToSendBack = [];
+        dataToSendBack.push(friends[winner].name, friends[winner].photo);
+        console.log(dataToSendBack);
+        // res.json(friends[winner].name);
+        res.json(dataToSendBack);
+
     });
 
 
