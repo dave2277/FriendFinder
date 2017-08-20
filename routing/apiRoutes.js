@@ -82,11 +82,4 @@ module.exports = function (app) {
         res.json(dataToSendBack);
 
     });
-
-
-    app.post('/api/clear', function(req, res){
-        friends = [];
-        console.log(friends);
-
-    });
 };
